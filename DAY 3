@@ -1,1 +1,133 @@
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+Q1 . Code to Print the Star Pattern
 
+fun main() {
+    val n = 6
+    for (i in 0..n) {
+        for (j in 0 until n - i) {
+            print(" ")
+        }
+        for (j in 0 until 2 * i + 1) {
+            print("*")
+        }
+        println()
+    }
+    for (i in n - 1 downTo 0) {
+        for (j in 0 until n - i) {
+            print(" ")
+        }
+        for (j in 0 until 2 * i + 1) {
+            print("*")
+        }
+        println()
+    }
+}
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q2 . Check if the number is Armstrong number or not
+
+fun isArmstrongNumber(number: Int): Boolean {
+    var temp = number
+    val numberOfDigits = number.toString().length
+    var sumOfPowers = 0
+
+    while (temp != 0) {
+        val digit = temp % 10
+        var power = 1
+        repeat(numberOfDigits) {
+            power *= digit
+        }
+        sumOfPowers += power
+        temp /= 10
+    }
+
+    return sumOfPowers == number
+}
+
+fun main() {
+    val number = 153 // Example number
+    if (isArmstrongNumber(number)) {
+        println("$number is an Armstrong number.")
+    } else {
+        println("$number is not an Armstrong number.")
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q3 . Find the GCD of two numbers using Euclidean method
+
+fun gcd(a: Int, b: Int): Int {
+    var num1 = a
+    var num2 = b
+    while (num2 != 0) {
+        val temp = num2
+        num2 = num1 % num2
+        num1 = temp
+    }
+    return num1
+}
+
+fun main() {
+    val number1 = 56 // Example number 1
+    val number2 = 98 // Example number 2
+    val gcdResult = gcd(number1, number2)
+    println("The GCD of $number1 and $number2 is $gcdResult")
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q4 . Find the frequency of letters in a string
+
+fun letterFrequency(input: String): IntArray {
+    val frequencyArray = IntArray(26)
+
+    for (char in input) {
+        if (char.isLetter()) {
+            val index = char.lowercaseChar() - 'a'
+            frequencyArray[index]++
+        }
+    }
+
+    return frequencyArray
+}
+
+fun main() {
+    val inputString = "Hello World!"
+    val frequencies = letterFrequency(inputString)
+
+    for (i in frequencies.indices) {
+        if (frequencies[i] > 0) {
+            val char = 'a' + i
+            println("Character: $char, Frequency: ${frequencies[i]}")
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q5 . Check if a number is duck number or not
+
+fun isDuckNumber(number: String): Boolean {
+    if (number[0] == '0') {
+        return false
+    }
+    for (i in 1 until number.length) {
+        if (number[i] == '0') {
+            return true
+        }
+    }
+    return false
+}
+
+fun main() {
+    val number = "7056"
+    if (isDuckNumber(number)) {
+        println("$number is a Duck number.")
+    } else {
+        println("$number is not a Duck number.")
+    }
+}
