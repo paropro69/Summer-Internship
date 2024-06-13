@@ -1,0 +1,220 @@
+Q1.
+Function Overloading
+
+const val PI = 3.141592653589793
+
+fun calculateArea(length: Double, breadth: Double): Double {
+    return length * breadth
+}
+
+fun calculateArea(radius: Double): Double {
+    return PI * radius * radius
+}
+
+fun main() {
+    val rectangleArea = calculateArea(5.0, 10.0)
+    val circleArea = calculateArea(7.0)
+    
+    println("Area of the rectangle: $rectangleArea")
+    println("Area of the circle: $circleArea")
+}
+Q2.
+Higher-Order Functions
+
+fun operation(a: Int, b: Int, func: (Int, Int) -> Int): Int {
+    return func(a, b)
+}
+
+fun main() {
+    val sum = operation(5, 3) { x, y -> x + y }
+    val difference = operation(5, 3) { x, y -> x - y }
+    val product = operation(5, 3) { x, y -> x * y }
+    val quotient = operation(6, 3) { x, y -> x / y }
+
+    println("Sum: $sum")
+    println("Difference: $difference")
+    println("Product: $product")
+    println("Quotient: $quotient")
+}
+Q3.
+fun String.isPalindrome(): Boolean {
+    val cleanedString = this.replace(Regex("[^A-Za-z0-9]"), "").lowercase()
+    return cleanedString == cleanedString.reversed()
+}
+
+fun main() {
+    val str1 = "A man, a plan, a canal, Panama"
+    val str2 = "Hello, World"
+    val str3 = "Madam In Eden, I'm Adam"
+
+    println("\"$str1\" is a palindrome: ${str1.isPalindrome()}")
+    println("\"$str2\" is a palindrome: ${str2.isPalindrome()}")
+    println("\"$str3\" is a palindrome: ${str3.isPalindrome()}")
+}
+Q4.
+fun factorial(n: Long): Long {
+    var result = 1L
+    for (i in 1..n) {
+        result *= i
+    }
+    return result
+}
+
+fun main() {
+    val number = 20L
+    println("Factorial of $number is ${factorial(number)}")
+}
+
+
+Advanced Programming 
+Q1.
+abstract class Shape {
+    abstract fun area(): Double
+    abstract fun perimeter(): Double
+}
+
+class Rectangle(private val length: Double, private val breadth: Double) : Shape() {
+    override fun area(): Double {
+        return length * breadth
+    }
+
+    override fun perimeter(): Double {
+        return 2 * (length + breadth)
+    }
+}
+
+class Circle(private val radius: Double) : Shape() {
+    private val pi = 3.141592653589793
+
+    override fun area(): Double {
+        return pi * radius * radius
+    }
+
+    override fun perimeter(): Double {
+        return 2 * pi * radius
+    }
+}
+
+fun main() {
+    val shapes: List<Shape> = listOf(
+        Rectangle(5.0, 10.0),
+        Circle(7.0)
+    )
+
+    for (shape in shapes) {
+        println("Shape: ${shape::class.simpleName}")
+        println("Area: ${shape.area()}")
+        println("Perimeter: ${shape.perimeter()}")
+        println()
+    }
+}
+
+Q2.
+data class Person(val name: String, val age: Int, val address: String)
+
+fun main() {
+    val person1 = Person("John Doe", 30, "123 Main St")
+    val person2 = person1.copy(age = 31, address = "456 Elm St")
+
+    println("Original person: $person1")
+    println("Copied person with new age and address: $person2")
+}
+
+Q3.
+class User(val name: String, val age: Int) {
+    companion object {
+        private const val DEFAULT_NAME = "Unknown"
+        private const val DEFAULT_AGE = 18
+
+        fun create(name: String = DEFAULT_NAME, age: Int = DEFAULT_AGE): User {
+            return User(name, age)
+        }
+    }
+
+    override fun toString(): String {
+        return "User(name='$name', age=$age)"
+    }
+}
+
+fun main() {
+    val user1 = User.create()
+    val user2 = User.create(name = "Alice")
+    val user3 = User.create(age = 25)
+    val user4 = User.create(name = "Bob", age = 30)
+
+    println(user1)
+    println(user2)
+    println(user3)
+    println(user4)
+}
+
+Q4.
+interface Drawable {
+    fun draw()
+    fun resize(factor: Double)
+}
+
+class Square(private val sideLength: Double) : Drawable {
+    override fun draw() {
+        println("Drawing a square with side length $sideLength")
+    }
+
+    override fun resize(factor: Double) {
+        println("Resizing square by factor $factor")
+    }
+}
+
+class Triangle(private val base: Double, private val height: Double) : Drawable {
+    override fun draw() {
+        println("Drawing a triangle with base $base and height $height")
+    }
+
+    override fun resize(factor: Double) {
+        println("Resizing triangle by factor $factor")
+    }
+}
+
+fun main() {
+    val square = Square(5.0)
+    val triangle = Triangle(3.0, 4.0)
+
+    square.draw()
+    triangle.draw()
+
+    square.resize(1.5)
+    triangle.resize(0.8)
+}
+
+Q5.
+object DatabaseConnection {
+    init {
+        // Initialization code if needed
+    }
+
+    fun connect() {
+        println("Connecting to database...")
+        // Code to establish database connection
+    }
+
+    fun disconnect() {
+        println("Disconnecting from database...")
+        // Code to disconnect from database
+    }
+}
+
+fun main() {
+    DatabaseConnection.connect()
+
+    val anotherInstance = DatabaseConnection
+    println("Are both instances the same? ${DatabaseConnection === anotherInstance}")
+
+    DatabaseConnection.disconnect()
+}
+
+
+
+
+
+
+
+
