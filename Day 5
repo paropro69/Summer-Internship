@@ -1,0 +1,192 @@
+Creating a Custom Collection
+
+class UniqueList<T> {
+    private val elements = mutableSetOf<T>()
+
+    fun add(element: T): Boolean {
+        return elements.add(element)
+    }
+
+    fun remove(element: T): Boolean {
+        return elements.remove(element)
+    }
+
+    fun contains(element: T): Boolean {
+        return elements.contains(element)
+    }
+
+    fun toList(): List<T> {
+        return elements.toList()
+    }
+}
+
+
+Filtering and Transforming Collections
+
+fun processNumbers(numbers: List<Int>): List<Int> {
+    return numbers.filter { it % 2 == 0 }.map { it * 2 }
+}
+
+
+Grouping and Aggregating
+
+fun groupAndCount(strings: List<String>): Map<Char, Int> {
+    return strings.groupBy { it.first() }
+        .mapValues { it.value.size }
+}
+
+
+Flattening Nested Collections
+
+fun flattenAndRemoveDuplicates(nestedList: List<List<Int>>): List<Int> {
+    return nestedList.flatten().toSet().toList()
+}
+
+
+Frequency Map
+
+fun frequencyMap(numbers: List<Int>): Map<Int, Int> {
+    return numbers.groupingBy { it }.eachCount()
+}
+
+
+Sorting Complex Objects
+
+data class Person(val name: String, val age: Int)
+
+fun sortPersons(persons: List<Person>): List<Person> {
+    return persons.sortedWith(compareBy<Person> { it.age }.thenBy { it.name })
+}
+
+
+Partitioning Collections
+
+fun partitionNumbers(numbers: List<Int>): Pair<List<Int>, List<Int>> {
+    return numbers.partition { it % 2 == 0 }
+}
+
+
+Intersection and Union
+
+fun intersection(list1: List<Int>, list2: List<Int>): List<Int> {
+    return list1.intersect(list2).toList()
+}
+
+fun union(list1: List<Int>, list2: List<Int>): List<Int> {
+    return (list1 + list2).toSet().toList()
+}
+
+
+Collection Operations with Custom Predicates
+
+fun filterStrings(strings: List<String>, predicate: (String) -> Boolean): List<String> {
+    return strings.filter(predicate)
+}
+
+
+Combining Collections
+
+fun alternateCombine(list1: List<Int>, list2: List<Int>): List<Int> {
+    val result = mutableListOf<Int>()
+    val size = maxOf(list1.size, list2.size)
+    for (i in 0 until size) {
+        if (i < list1.size) result.add(list1[i])
+        if (i < list2.size) result.add(list2[i])
+    }
+    return result
+}
+
+
+Kotlin Null Safety Practice Questions
+Safe Calls and Elvis Operator
+
+fun getLength(str: String?): Int {
+    return str?.length ?: -1
+}
+
+
+Safe Casting with as?
+
+fun filterStrings(list: List<Any>): List<String> {
+    return list.mapNotNull { it as? String }
+}
+
+
+Nullability and Collections
+
+fun nonNullIntegers(list: List<Int?>): List<Int> {
+    return list.filterNotNull()
+}
+
+
+Optional Type Wrapping
+
+fun <T> wrapInOptional(value: T?): Optional<T> {
+    return Optional.ofNullable(value)
+}
+
+
+
+class Optional<T> private constructor(private val value: T?) {
+    companion object {
+        fun <T> ofNullable(value: T?): Optional<T> = Optional(value)
+    }
+
+    fun isPresent(): Boolean = value != null
+    fun get(): T? = value
+}
+
+
+Handling Null with let
+
+fun printUppercase(str: String?) {
+    str?.let {
+        println(it.uppercase())
+    } ?: println("String is null")
+}
+
+
+Null Safety with Higher-Order Functions
+
+fun doubleNonNullValues(list: List<Int?>): List<Int> {
+    return list.mapNotNull { it?.let { it * 2 } }
+}
+
+
+Elvis Operator in Expressions
+
+fun sumIfNotNull(a: Int?, b: Int?): Int {
+    return a ?: return -1 + b ?: return -1
+}
+
+
+Null Safety in Data Classes
+
+data class User(val name: String?, val email: String?)
+
+fun printUserDetails(user: User) {
+    if (user.name == null || user.email == null) {
+        println("Incomplete User")
+    } else {
+        println("Name: ${user.name}, Email: ${user.email}")
+    }
+}
+
+
+Chaining Safe Calls
+
+class Address(val city: String?)
+class Person(val address: Address?)
+
+fun getCityName(person: Person?): String {
+    return person?.address?.city ?: "Unknown City"
+}
+
+
+Scope Functions and Nullability
+
+fun sortAndPrintList(list: List<Int>?) {
+    list?.run {
+        sorted().forEach { println(it) }
+    }
+}
